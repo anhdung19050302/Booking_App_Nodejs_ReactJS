@@ -8,14 +8,23 @@ import connect from './mongodb.js';
 const app = express();
 
 // middlewares
+app.use(express.json());
 
 app.use('/api/auth', authRoute);
 app.use('/api/hotels', hotetRoute);
 app.use('/api/rooms', roomRoute);
 app.use('/api/users', userRoute);
 
-app.get('/', (req, res) => {
-    res.send('Hello World');
+app.use((err, req, res, next) => {
+    const errorStatus = err.status || 500;
+    const errMessage = err.message || 'Something went wrong';
+
+    return res.status(errorStatus).json({
+        success: false,
+        status: errorStatus,
+        message: errMessage,
+        stack: err.stack,
+    });
 });
 
 app.listen(8080, () => {
