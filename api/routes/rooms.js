@@ -1,9 +1,19 @@
 import express from 'express';
+import { createRoom, deleteRoom, getAllRoom, getRoom, updateRoom } from '../controller/room.js';
+import { verifyAdmin } from '../utils/verifyToken.js';
 
 const router = express.Router();
+//Create
+router.post('/:hotelid', verifyAdmin, createRoom);
+// Update
+router.put('/:id', verifyAdmin, updateRoom);
+//Delete
+router.delete('/:id/:hotelid', verifyAdmin, deleteRoom);
 
-router.get('/', (req, res) => {
-    res.send('Trang rooms');
-});
+// Get hotel
+router.get('/:id', getRoom);
+
+// Get all hotels
+router.get('/', getAllRoom);
 
 export default router;
