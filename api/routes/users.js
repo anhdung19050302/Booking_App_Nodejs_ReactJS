@@ -17,12 +17,12 @@ const router = express.Router();
 // Update
 router.put('/:id', verifyUser, updateUser);
 //Delete
-router.delete('/:id', verifyUser, deleteUser);
+router.delete('/:id', deleteUser);
 
 // Get hotel
 router.get('/:id', verifyUser, getUser);
 
 // Get all hotels
-router.get('/', verifyAdmin, getAllUser);
+router.get('/', getAllUser);
 
 export default router;
